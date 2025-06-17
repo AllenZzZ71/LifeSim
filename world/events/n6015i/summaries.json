@@ -1,0 +1,76 @@
+{
+  "events": [
+    {
+      "tick": 58907,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 58967,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59027,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59087,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59117,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59177,
+      "action": "ignored someone in need"
+    },
+    {
+      "time": "2025-06-17 14:19",
+      "summary": "Sage comforted Max during a tough moment."
+    },
+    {
+      "tick": 59207,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59237,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59297,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59327,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59357,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59387,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59477,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59717,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59747,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 60017,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 60437,
+      "action": "ignored someone in need"
+    }
+  ]
+}

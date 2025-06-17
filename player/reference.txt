@@ -1,0 +1,13 @@
+{
+  "id": ""
+  "name": ""
+  "age": 
+  "gender":
+  "birth_tick":
+  "traits": []
+  "personality": "00000000000000000000",
+  "stats": "00000000000000000000",
+  "fightStats": "00000000000000000000",
+  "relationships": {}
+  "current_location":
+}

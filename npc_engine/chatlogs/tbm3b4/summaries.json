@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "tick": 24462,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 24827,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 25192,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 25557,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 25922,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 26287,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 26652,
+      "action": "ignored someone in need"
+    }
+  ]
+}

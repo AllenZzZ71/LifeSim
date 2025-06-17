@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "tick": 24462,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 24827,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 25192,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 25557,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 25922,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 26287,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 26652,
+      "action": "volunteered at the shelter"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "events": [
+    {
+      "time": "2025-06-17 13:22",
+      "summary": "Max chatted with Milo about the weather."
+    },
+    {
+      "tick": 58907,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 58967,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59027,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59087,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59117,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59177,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59207,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59237,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "time": "2025-06-17 14:21",
+      "summary": "Mira stood up for Milo in an argument."
+    },
+    {
+      "tick": 59297,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59327,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59357,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59387,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59477,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59717,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "time": "2025-06-17 14:58",
+      "summary": "Lyra comforted Milo during a tough moment."
+    },
+    {
+      "tick": 59747,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 60017,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 60437,
+      "action": "volunteered at the shelter"
+    }
+  ]
+}

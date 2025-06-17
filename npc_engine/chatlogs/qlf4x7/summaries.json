@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "tick": 24462,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 24827,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 25192,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 25557,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 25922,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 26287,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 26652,
+      "action": "slept through most of the day"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "aa": {
+    "name": "Brave",
+    "desc": "Acts fearlessly, even in dangerous situations.",
+    "modifiers": {
+      "CHA": 1,
+      "MOOD": 1
+    },
+    "tags": ["bold", "risk-taker"]
+  },
+  "ab": {
+    "name": "Cowardly",
+    "desc": "Avoids danger and conflict whenever possible.",
+    "modifiers": {
+      "CHA": -1,
+      "MOOD": -1
+    },
+    "tags": ["fearful", "cautious"]
+  },
+  "ac": {
+    "name": "Loyal",
+    "desc": "Deeply committed to those they care about.",
+    "modifiers": {
+      "RELATIONSHIP_GAIN": 10
+    },
+    "tags": ["trustworthy", "bonded"]
+  },
+  "ad": {
+    "name": "Deceitful",
+    "desc": "Often lies or hides the truth for personal gain.",
+    "modifiers": {
+      "RELATIONSHIP_LOSS": 10
+    },
+    "tags": ["manipulative", "untrustworthy"]
+  },
+  "ae": {
+    "name": "Sarcastic",
+    "desc": "Frequently uses dry or mocking humor.",
+    "modifiers": {
+      "CHA": 1,
+      "RELATIONSHIP_START": -5
+    },
+    "tags": ["witty", "guarded"]
+  },
+  "af": {
+    "name": "Ambitious",
+    "desc": "Driven to achieve success, no matter the cost.",
+    "modifiers": {
+      "INT": 1,
+      "MOOD": -1
+    },
+    "tags": ["driven", "goal-oriented"]
+  },
+  "ag": {
+    "name": "Lazy",
+    "desc": "Avoids effort and responsibility when possible.",
+    "modifiers": {
+      "VITALITY": -1,
+      "WORK_EFFICIENCY": -2
+    },
+    "tags": ["sluggish", "unmotivated"]
+  },
+  "ah": {
+    "name": "Empathetic",
+    "desc": "Feels and understands the emotions of others.",
+    "modifiers": {
+      "CHA": 2,
+      "RELATIONSHIP_GAIN": 5
+    },
+    "tags": ["compassionate", "social"]
+  },
+  "ai": {
+    "name": "Hot-Tempered",
+    "desc": "Easily angered, quick to react emotionally.",
+    "modifiers": {
+      "MOOD_SWING": 3
+    },
+    "tags": ["aggressive", "reactive"]
+  },
+  "aj": {
+    "name": "Curious",
+    "desc": "Always asking questions and exploring ideas.",
+    "modifiers": {
+      "INT": 2
+    },
+    "tags": ["inquisitive", "restless"]
+  }
+}

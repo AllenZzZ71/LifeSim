@@ -1,0 +1,88 @@
+{
+  "events": [
+    {
+      "tick": 58907,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 58967,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59027,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59087,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "time": "2025-06-17 14:17",
+      "summary": "Lena chatted with Bellamy about the weather."
+    },
+    {
+      "tick": 59117,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59177,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59207,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "time": "2025-06-17 14:19",
+      "summary": "Bellamy gave advice to Aria after a breakup."
+    },
+    {
+      "tick": 59237,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59297,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "time": "2025-06-17 14:21",
+      "summary": "Bellamy chatted with Sky about the weather."
+    },
+    {
+      "tick": 59327,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59357,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59387,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59477,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59717,
+      "action": "woke up early and exercised"
+    },
+    {
+      "time": "2025-06-17 14:58",
+      "summary": "Bellamy gave advice to Elio after a breakup."
+    },
+    {
+      "tick": 59747,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 60017,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 60437,
+      "action": "woke up early and exercised"
+    }
+  ]
+}

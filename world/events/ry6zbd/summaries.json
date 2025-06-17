@@ -1,0 +1,88 @@
+{
+  "events": [
+    {
+      "tick": 58907,
+      "action": "ignored someone in need"
+    },
+    {
+      "time": "2025-06-17 14:04",
+      "summary": "Aria chatted with Sol about the weather."
+    },
+    {
+      "tick": 58967,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59027,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59087,
+      "action": "ignored someone in need"
+    },
+    {
+      "time": "2025-06-17 14:17",
+      "summary": "Wren ignored Sol completely."
+    },
+    {
+      "tick": 59117,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59177,
+      "action": "ignored someone in need"
+    },
+    {
+      "time": "2025-06-17 14:19",
+      "summary": "Silas ignored Sol completely."
+    },
+    {
+      "tick": 59207,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59237,
+      "action": "ignored someone in need"
+    },
+    {
+      "time": "2025-06-17 14:21",
+      "summary": "Ash challenged Sol to improve themselves."
+    },
+    {
+      "tick": 59297,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59327,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59357,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59387,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59477,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59717,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59747,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 60017,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 60437,
+      "action": "ignored someone in need"
+    }
+  ]
+}

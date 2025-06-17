@@ -1,0 +1,76 @@
+{
+  "events": [
+    {
+      "tick": 58907,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 58967,
+      "action": "woke up early and exercised"
+    },
+    {
+      "time": "2025-06-17 14:15",
+      "summary": "Rhea ignored Milo completely."
+    },
+    {
+      "tick": 59027,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59087,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59117,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59177,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59207,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59237,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59297,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59327,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59357,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59387,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59477,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59717,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 59747,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 60017,
+      "action": "woke up early and exercised"
+    },
+    {
+      "tick": 60437,
+      "action": "woke up early and exercised"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "events": [
+    {
+      "time": "2025-06-17 13:22",
+      "summary": "Ash chatted with Rhea about the weather."
+    },
+    {
+      "time": "2025-06-17 13:22",
+      "summary": "Ash ignored Aria completely."
+    },
+    {
+      "tick": 58907,
+      "action": "went about their day quietly"
+    },
+    {
+      "time": "2025-06-17 14:04",
+      "summary": "Ash chatted with Ivy about the weather."
+    },
+    {
+      "time": "2025-06-17 14:04",
+      "summary": "Ivy chatted with Ash about the weather."
+    },
+    {
+      "tick": 58967,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59027,
+      "action": "went about their day quietly"
+    },
+    {
+      "time": "2025-06-17 14:17",
+      "summary": "Nina comforted Ash during a tough moment."
+    },
+    {
+      "tick": 59087,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59117,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59177,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59207,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59237,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59297,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59327,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59357,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59387,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59477,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59717,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 59747,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 60017,
+      "action": "went about their day quietly"
+    },
+    {
+      "tick": 60437,
+      "action": "went about their day quietly"
+    }
+  ]
+}

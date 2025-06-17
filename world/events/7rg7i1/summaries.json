@@ -1,0 +1,88 @@
+{
+  "events": [
+    {
+      "tick": 58907,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "time": "2025-06-17 14:04",
+      "summary": "Ivy ignored Riley completely."
+    },
+    {
+      "tick": 58967,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "time": "2025-06-17 14:15",
+      "summary": "Taylor ignored Riley completely."
+    },
+    {
+      "tick": 59027,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59087,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59117,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59177,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59207,
+      "action": "slept through most of the day"
+    },
+    {
+      "time": "2025-06-17 14:19",
+      "summary": "Mira ignored Riley completely."
+    },
+    {
+      "tick": 59237,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59297,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59327,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59357,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59387,
+      "action": "slept through most of the day"
+    },
+    {
+      "time": "2025-06-17 14:28",
+      "summary": "Riley gave advice to Jasper after a breakup."
+    },
+    {
+      "tick": 59477,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59717,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59747,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 60017,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 60437,
+      "action": "slept through most of the day"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "events": [
+    {
+      "tick": 58907,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 58967,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59027,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59087,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59117,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "tick": 59177,
+      "action": "volunteered at the shelter"
+    },
+    {
+      "time": "2025-06-17 14:19",
+      "summary": "Sage comforted Max during a tough moment."
+    },
+    {
+      "tick": 59207,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "time": "2025-06-17 14:19",
+      "summary": "Sage ignored Silas completely."
+    },
+    {
+      "time": "2025-06-17 14:19",
+      "summary": "Sage chatted with Leo about the weather."
+    },
+    {
+      "tick": 59237,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59297,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "time": "2025-06-17 14:21",
+      "summary": "Sage stood up for Nova in an argument."
+    },
+    {
+      "tick": 59327,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "time": "2025-06-17 14:23",
+      "summary": "Sage challenged Nyx to improve themselves."
+    },
+    {
+      "tick": 59357,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59387,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59477,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59717,
+      "action": "slept through most of the day"
+    },
+    {
+      "time": "2025-06-17 14:58",
+      "summary": "Lena ignored Sage completely."
+    },
+    {
+      "tick": 59747,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 60017,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 60437,
+      "action": "slept through most of the day"
+    }
+  ]
+}

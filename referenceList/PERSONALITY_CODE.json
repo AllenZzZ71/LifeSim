@@ -1,0 +1,62 @@
+[
+  {
+    "id": "0",
+    "name": "Empathy",
+    "description": "Emotional sensitivity and capacity to understand or care for others.",
+    "keywords": ["compassion", "sensitivity", "emotional awareness"]
+  },
+  {
+    "id": "1",
+    "name": "Assertiveness",
+    "description": "Confidence in expressing needs, taking initiative, and standing ground.",
+    "keywords": ["dominance", "boldness", "outspokenness"]
+  },
+  {
+    "id": "2",
+    "name": "Curiosity",
+    "description": "Inclination to explore, ask questions, and seek out new knowledge or experiences.",
+    "keywords": ["inquisitive", "open-minded", "adventurous"]
+  },
+  {
+    "id": "3",
+    "name": "Discipline",
+    "description": "Self-control and ability to persist, follow plans, and resist impulsive behavior.",
+    "keywords": ["willpower", "focus", "organization"]
+  },
+  {
+    "id": "4",
+    "name": "Sociability",
+    "description": "Desire for social interaction, stimulation, and company of others.",
+    "keywords": ["extroversion", "friendliness", "chattiness"]
+  },
+  {
+    "id": "5",
+    "name": "Loyalty",
+    "description": "Devotion and faithfulness to people, causes, or beliefs.",
+    "keywords": ["trustworthiness", "devotion", "bond"]
+  },
+  {
+    "id": "6",
+    "name": "Risk Tolerance",
+    "description": "Comfort with danger, uncertainty, or high-stakes scenarios.",
+    "keywords": ["bravery", "thrill-seeking", "adrenaline"]
+  },
+  {
+    "id": "7",
+    "name": "Deviance",
+    "description": "Willingness to challenge authority, break rules, or defy norms.",
+    "keywords": ["rebellion", "anarchy", "rule-breaking"]
+  },
+  {
+    "id": "8",
+    "name": "Mood Stability",
+    "description": "Consistency and predictability of emotional reactions.",
+    "keywords": ["calmness", "patience", "emotional control"]
+  },
+  {
+    "id": "9",
+    "name": "Ambition",
+    "description": "Drive to achieve goals, status, or personal excellence.",
+    "keywords": ["motivation", "hustle", "drive"]
+  }
+]

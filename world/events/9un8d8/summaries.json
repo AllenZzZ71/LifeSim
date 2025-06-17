@@ -1,0 +1,80 @@
+{
+  "events": [
+    {
+      "tick": 58907,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 58967,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59027,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59087,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59117,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59177,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "time": "2025-06-17 14:19",
+      "summary": "Indigo stood up for Alex in an argument."
+    },
+    {
+      "tick": 59207,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59237,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59297,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59327,
+      "action": "slept through most of the day"
+    },
+    {
+      "tick": 59357,
+      "action": "ignored someone in need"
+    },
+    {
+      "time": "2025-06-17 14:23",
+      "summary": "Lyra challenged Indigo to improve themselves."
+    },
+    {
+      "tick": 59387,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59477,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 59717,
+      "action": "ignored someone in need"
+    },
+    {
+      "tick": 59747,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 60017,
+      "action": "stood up for a friend in an argument"
+    },
+    {
+      "tick": 60437,
+      "action": "stood up for a friend in an argument"
+    }
+  ]
+}
