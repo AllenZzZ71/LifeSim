@@ -1,0 +1,34 @@
+{
+  "deaths": [
+    {
+      "name": "Martin Mane",
+      "id": "player_001",
+      "death_tick": 64937,
+      "death_date": "2058-09-01",
+      "cause": "organ_failure",
+      "cause_description": "Critical damage to vital organs",
+      "location": "unknown",
+      "timestamp": "2025-06-19 12:36:13"
+    },
+    {
+      "name": "Martin Mane",
+      "id": "player_001",
+      "death_tick": 64937,
+      "death_date": "2058-09-01",
+      "cause": "organ_failure",
+      "cause_description": "Critical damage to vital organs",
+      "location": "unknown",
+      "timestamp": "2025-06-19 12:36:47"
+    },
+    {
+      "name": "Martin Mane",
+      "id": "player_001",
+      "death_tick": 64937,
+      "death_date": "2058-09-01",
+      "cause": "organ_failure",
+      "cause_description": "Critical damage to vital organs",
+      "location": "unknown",
+      "timestamp": "2025-06-19 12:36:51"
+    }
+  ]
+}

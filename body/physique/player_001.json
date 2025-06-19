@@ -1,0 +1,191 @@
+{
+  "muscles": {
+    "chest": {
+      "size": 24.0,
+      "definition": 9,
+      "fatigue": 0,
+      "last_trained": null,
+      "training_volume": 15.0
+    },
+    "shoulders": {
+      "size": 17.0,
+      "definition": 9,
+      "fatigue": 0,
+      "last_trained": null,
+      "training_volume": 9.0
+    },
+    "arms": {
+      "size": 23.0,
+      "definition": 11,
+      "fatigue": 0,
+      "last_trained": null,
+      "training_volume": 17.0
+    },
+    "back": {
+      "size": 28.5,
+      "definition": 6,
+      "fatigue": 0,
+      "last_trained": null,
+      "training_volume": 16.5
+    },
+    "core": {
+      "size": 27.999999999999993,
+      "definition": 12,
+      "fatigue": 0,
+      "last_trained": null,
+      "training_volume": 18.999999999999996
+    },
+    "legs": {
+      "size": 33.5,
+      "definition": 12,
+      "fatigue": 0,
+      "last_trained": null,
+      "training_volume": 21.5
+    },
+    "glutes": {
+      "size": 29.999999999999993,
+      "definition": 9,
+      "fatigue": 0,
+      "last_trained": null,
+      "training_volume": 16.0
+    }
+  },
+  "body_fat": 11,
+  "total_mass": 184.0,
+  "training_history": [
+    {
+      "tick": 64307,
+      "workout": "Strength Training",
+      "exercises": [
+        "deadlift",
+        "squat_rack",
+        "bench_press"
+      ],
+      "fatigue": 90.0,
+      "gains": {
+        "back": 1.875,
+        "legs": 3.25,
+        "glutes": 2.583333333333333,
+        "core": 2.583333333333333,
+        "chest": 1.5,
+        "shoulders": 1.0,
+        "arms": 1.0
+      }
+    },
+    {
+      "tick": 64397,
+      "workout": "Full Body Workout",
+      "exercises": [
+        "bench_press",
+        "squat_rack",
+        "pull_ups",
+        "crunches"
+      ],
+      "fatigue": 87.0,
+      "gains": {
+        "chest": 1.5,
+        "shoulders": 1.0,
+        "arms": 2.0,
+        "legs": 2.0,
+        "glutes": 1.3333333333333333,
+        "core": 2.833333333333333,
+        "back": 1.5
+      }
+    },
+    {
+      "tick": 64457,
+      "workout": "Custom Workout",
+      "exercises": [
+        "bench_press",
+        "squat_rack",
+        "deadlift",
+        "pull_ups",
+        "dumbbell_rows",
+        "shoulder_press",
+        "leg_press",
+        "cable_flyes",
+        "bicep_curls",
+        "crunches"
+      ],
+      "fatigue": 205.0,
+      "gains": {
+        "chest": 4.5,
+        "shoulders": 2.5,
+        "arms": 5.5,
+        "legs": 5.5,
+        "glutes": 4.083333333333333,
+        "core": 4.083333333333333,
+        "back": 4.875
+      }
+    },
+    {
+      "tick": 64517,
+      "workout": "Custom Workout",
+      "exercises": [
+        "bench_press",
+        "squat_rack",
+        "deadlift"
+      ],
+      "fatigue": 90.0,
+      "gains": {
+        "chest": 1.5,
+        "shoulders": 1.0,
+        "arms": 1.0,
+        "legs": 3.25,
+        "glutes": 2.583333333333333,
+        "core": 2.583333333333333,
+        "back": 1.875
+      }
+    },
+    {
+      "tick": 64607,
+      "workout": "Full Body Workout",
+      "exercises": [
+        "bench_press",
+        "squat_rack",
+        "pull_ups",
+        "crunches"
+      ],
+      "fatigue": 87.0,
+      "gains": {
+        "chest": 1.5,
+        "shoulders": 1.0,
+        "arms": 2.0,
+        "legs": 2.0,
+        "glutes": 1.3333333333333333,
+        "core": 2.833333333333333,
+        "back": 1.5
+      }
+    },
+    {
+      "tick": 64667,
+      "workout": "Custom Workout",
+      "exercises": [
+        "bench_press",
+        "squat_rack",
+        "deadlift",
+        "pull_ups",
+        "dumbbell_rows",
+        "shoulder_press",
+        "leg_press",
+        "cable_flyes",
+        "bicep_curls",
+        "crunches"
+      ],
+      "fatigue": 205.0,
+      "gains": {
+        "chest": 4.5,
+        "shoulders": 2.5,
+        "arms": 5.5,
+        "legs": 5.5,
+        "glutes": 4.083333333333333,
+        "core": 4.083333333333333,
+        "back": 4.875
+      }
+    }
+  ],
+  "supplements": {},
+  "last_workout": 64667,
+  "recovery_status": {},
+  "strength_multiplier": 1.0
+}

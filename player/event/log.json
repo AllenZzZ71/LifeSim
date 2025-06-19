@@ -509,5 +509,152 @@
     "action_id": "study",
     "action": "Study something new",
     "time": "2025-06-17 20:58"
+  },
+  {
+    "tick": 63947,
+    "name": "Martin Mane",
+    "action_id": "healing",
+    "action": "Used Physical Therapy",
+    "timestamp": "2025-06-19 10:52:43"
+  },
+  {
+    "tick": 64037,
+    "name": "Martin Mane",
+    "action_id": "study",
+    "action": "Studied philosophy",
+    "timestamp": "2025-06-19 10:53:22"
+  },
+  {
+    "tick": 64067,
+    "name": "Martin Mane",
+    "action_id": "study",
+    "action": "Studied literature",
+    "timestamp": "2025-06-19 10:53:23"
+  },
+  {
+    "tick": 64097,
+    "name": "Martin Mane",
+    "action_id": "study",
+    "action": "Studied literature",
+    "timestamp": "2025-06-19 10:53:25"
+  },
+  {
+    "tick": 64127,
+    "name": "Martin Mane",
+    "action_id": "healing",
+    "action": "Used Medical Treatment",
+    "timestamp": "2025-06-19 10:53:59"
+  },
+  {
+    "tick": 64157,
+    "name": "Martin Mane",
+    "action_id": "healing",
+    "action": "Used Medical Treatment",
+    "timestamp": "2025-06-19 10:54:10"
+  },
+  {
+    "tick": 64217,
+    "name": "Martin Mane",
+    "action_id": "healing",
+    "action": "Used Medical Treatment",
+    "timestamp": "2025-06-19 11:07:52"
+  },
+  {
+    "tick": 64247,
+    "name": "Martin Mane",
+    "action_id": "healing",
+    "action": "Used Medical Treatment",
+    "timestamp": "2025-06-19 11:08:02"
+  },
+  {
+    "tick": 64277,
+    "name": "Martin Mane",
+    "action_id": "socialize",
+    "action": "Socialized with locals",
+    "timestamp": "2025-06-19 11:58:11"
+  },
+  {
+    "tick": 64367,
+    "name": "Martin Mane",
+    "action_id": "explore",
+    "action": "Explored local markets",
+    "timestamp": "2025-06-19 11:59:52"
+  },
+  {
+    "tick": 64577,
+    "name": "Martin Mane",
+    "action_id": "exercise",
+    "action": "Did cycling",
+    "timestamp": "2025-06-19 12:05:46"
+  },
+  {
+    "tick": 64727,
+    "name": "Martin Mane",
+    "action_id": "relax",
+    "action": "Relaxed by listening to music",
+    "timestamp": "2025-06-19 12:06:58"
+  },
+  {
+    "tick": 64787,
+    "name": "Martin Mane",
+    "action_id": "healing",
+    "action": "Used Medical Treatment",
+    "timestamp": "2025-06-19 12:10:28"
+  },
+  {
+    "tick": 64817,
+    "name": "Martin Mane",
+    "action_id": "healing",
+    "action": "Used Medical Treatment",
+    "timestamp": "2025-06-19 12:10:34"
+  },
+  {
+    "tick": 64847,
+    "name": "Martin Mane",
+    "action_id": "healing",
+    "action": "Used Medical Treatment",
+    "timestamp": "2025-06-19 12:10:38"
+  },
+  {
+    "tick": 64877,
+    "name": "Martin Mane",
+    "action_id": "healing",
+    "action": "Used Medical Treatment",
+    "timestamp": "2025-06-19 12:10:41"
+  },
+  {
+    "tick": 64967,
+    "name": "Jake Jones",
+    "action_id": "move_city",
+    "action": "Moved to Adelaide",
+    "timestamp": "2025-06-19 12:41:09"
+  },
+  {
+    "tick": 64997,
+    "name": "Jake James",
+    "action_id": "move_city",
+    "action": "Moved to Ankara",
+    "timestamp": "2025-06-19 12:42:57"
+  },
+  {
+    "tick": 65087,
+    "name": "Jake James",
+    "action_id": "move_city",
+    "action": "Moved to Adelaide",
+    "timestamp": "2025-06-19 12:46:17"
+  },
+  {
+    "tick": 65147,
+    "name": "Jake James",
+    "action_id": "relax",
+    "action": "Relaxed by listening to music",
+    "timestamp": "2025-06-19 12:49:25"
+  },
+  {
+    "tick": 65177,
+    "name": "Jake James",
+    "action_id": "relax",
+    "action": "Relaxed by listening to music",
+    "timestamp": "2025-06-19 12:49:27"
   }
 ]

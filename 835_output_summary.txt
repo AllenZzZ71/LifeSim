@@ -1,0 +1,23 @@
+======================================================================
+EDI 835 ELECTRONIC REMITTANCE ADVICE SUMMARY
+======================================================================
+
+PROVIDER INFORMATION:
+  Name: E NEIGHBOR LLC
+
+CLAIMS SUMMARY:
+  Total Claims: 1
+  Total Charges: $133.40
+  Total Payments: $0.00
+  Total Patient Responsibility: $0.00
+
+--------------------------------------------------
+CLAIM 1:
+  Patient Control Number: 603921
+  Claim Status: 4
+  Payer Claim Number: 3161972893
+  Patient: Jake Jones
+  Member ID: 20333474
+  Total Charge: $133.40
+  Payment Amount: $0.00
+  Patient Responsibility: $0.00
