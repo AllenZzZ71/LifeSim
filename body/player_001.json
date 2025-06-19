@@ -1,10 +1,10 @@
 {
   "body": {
     "head": {
-      "health": 0
+      "health": 100
     },
     "torso": {
-      "health": 100
+      "health": 88
     },
     "left_arm": {
       "health": 100

@@ -488,5 +488,26 @@
     "action_id": "interact_npc",
     "action": "Interacted with Jasper",
     "time": "2025-06-17 14:23"
+  },
+  {
+    "tick": 61397,
+    "name": "James Moe",
+    "action_id": "study",
+    "action": "Study something new",
+    "time": "2025-06-17 20:29"
+  },
+  {
+    "tick": 61610,
+    "name": "James Moe",
+    "action_id": "study",
+    "action": "Study something new",
+    "time": "2025-06-17 20:49"
+  },
+  {
+    "tick": 62531,
+    "name": "James Moe",
+    "action_id": "study",
+    "action": "Study something new",
+    "time": "2025-06-17 20:58"
   }
 ]

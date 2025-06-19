@@ -11,3 +11,18 @@
   "relationships": {}
   "current_location":
 }
+
+{
+  "strength": 15,       // Affects damage output
+  "endurance": 12,      // Affects max stamina & stamina recovery
+  "accuracy": 18,       // Affects hit chance
+  "speed": 16,          // Affects cooldown reduction and dodging
+  "experience": 10,     // Affects consistency & prediction success
+  "reflex": 14,         // Affects dodge/parry/block timing
+  "toughness": 11,      // Slightly reduces incoming damage
+  "focus": 13,          // Reduces fumbles/slips, helps blocking
+  "stamina": 20,        // Total stamina pool
+  "willpower": 9        // Helps keep fighting when HP is low
+
+  "15121816101411132009"
+}
