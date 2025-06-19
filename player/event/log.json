@@ -656,5 +656,19 @@
     "action_id": "relax",
     "action": "Relaxed by listening to music",
     "timestamp": "2025-06-19 12:49:27"
+  },
+  {
+    "tick": 65357,
+    "name": "Jake James",
+    "action_id": "interact_npc",
+    "action": "Chatted with Dax",
+    "timestamp": "2025-06-19 15:25:12"
+  },
+  {
+    "tick": 65387,
+    "name": "Jake James",
+    "action_id": "study",
+    "action": "Studied literature",
+    "timestamp": "2025-06-19 15:25:14"
   }
 ]

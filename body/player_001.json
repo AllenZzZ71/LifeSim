@@ -1,22 +1,22 @@
 {
   "body": {
     "head": {
-      "health": 31
-    },
-    "torso": {
-      "health": 3
-    },
-    "left_arm": {
-      "health": 3
-    },
-    "right_arm": {
-      "health": 1
-    },
-    "left_leg": {
       "health": 4
     },
+    "torso": {
+      "health": 12
+    },
+    "left_arm": {
+      "health": 6
+    },
+    "right_arm": {
+      "health": 5
+    },
+    "left_leg": {
+      "health": 12
+    },
     "right_leg": {
-      "health": 32
+      "health": 11
     }
   }
 }

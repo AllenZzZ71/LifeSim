@@ -1096,7 +1096,10 @@ class DeathSystem:
             base_chance -= cause_data["medical_help_reduction"]
         
         # Character stats affect survival
-        char_data = CharacterManager.get_character_data(char_id)
+        if(char_id != "player_001"):
+            char_data = CharacterManager.get_character_data(char_id)
+        else:
+            char_data = getPlayer()
         if char_data and len(char_data) > 8:
             stats = StatManager.get_stat_block(char_data[8])
             endurance = stats[1] if len(stats) > 1 else 20
@@ -1198,8 +1201,14 @@ class MedicalSystem:
     def medical_intervention_menu(char_id: str, char_name: str) -> Optional[str]:
         """Display medical intervention options."""
         # Get location
-        char_data = CharacterManager.get_character_data(char_id)
+        if(char_id == "player_001"):
+            char_data = getPlayer()
+        else:    
+            char_data = CharacterManager.get_character_data(char_id)
         location_id = char_data[10] if char_data and len(char_data) > 10 else "unknown"
+
+        print(char_data)
+        print(location_id)
         
         available_care = MedicalSystem.get_available_medical_care(location_id)
         
@@ -1295,7 +1304,10 @@ class DeathConsequences:
         }
         
         # Get location info
-        char_data = CharacterManager.get_character_data(char_id)
+        if (char_id != "player_001"):
+            char_data = CharacterManager.get_character_data(char_id)
+        else:
+            char_data = getPlayer()
         if char_data and len(char_data) > 10:
             city_info = WorldManager.get_city_info(char_data[10])
             death_record["location"] = f"{city_info['name']}, {city_info['country']}"
@@ -1417,19 +1429,46 @@ class DeathConsequences:
         
         input("Press Enter to continue...")
 
-# === NEAR-DEATH RECOVERY SYSTEM ===
+# === RECOVERY SYSTEM ===
 class RecoverySystem:
     @staticmethod
     def check_natural_recovery(char_id: str) -> Dict[str, Any]:
         """Check for natural recovery from near-death."""
         near_death_path = os.path.join("./body/near_death", f"{char_id}.json")
+        
+        # Check if file exists and load data
+        if not os.path.exists(near_death_path):
+            return {"status": "not_near_death"}
+            
         near_death_data = load_json(near_death_path)
         
-        if not near_death_data or not near_death_data.get("active"):
+        # Validate data structure
+        if not near_death_data or not isinstance(near_death_data, dict):
+            # Clean up corrupted file
+            try:
+                os.remove(near_death_path)
+            except:
+                pass
             return {"status": "not_near_death"}
         
+        # Check if near-death state is active
+        if not near_death_data.get("active", False):
+            # Clean up inactive near-death file
+            try:
+                os.remove(near_death_path)
+            except:
+                pass
+            return {"status": "not_near_death"}
+        
+        # Get recovery chances with fallbacks
         recovery_chance = near_death_data.get("recovery_chance", 10)
         deterioration_chance = near_death_data.get("deterioration_chance", 30)
+        
+        # Validate chances are reasonable numbers
+        if not isinstance(recovery_chance, (int, float)) or recovery_chance < 0:
+            recovery_chance = 10
+        if not isinstance(deterioration_chance, (int, float)) or deterioration_chance < 0:
+            deterioration_chance = 30
         
         roll = random.randint(1, 100)
         
@@ -1448,9 +1487,12 @@ class RecoverySystem:
         """Recover from near-death state."""
         near_death_path = os.path.join("./body/near_death", f"{char_id}.json")
         
-        # Clear near-death status
+        # Clear near-death status (with error handling)
         if os.path.exists(near_death_path):
-            os.remove(near_death_path)
+            try:
+                os.remove(near_death_path)
+            except OSError as e:
+                print(f"{Icons.WARNING} Could not remove near-death file: {e}")
         
         # Apply recovery healing
         body = CombatSystem.load_body(char_id)
@@ -1470,28 +1512,59 @@ class RecoverySystem:
     def worsen_condition(char_id: str) -> Dict[str, Any]:
         """Worsen near-death condition."""
         near_death_path = os.path.join("./body/near_death", f"{char_id}.json")
+        
+        # Load data with validation
+        if not os.path.exists(near_death_path):
+            # File doesn't exist, create critical condition
+            return {"status": "death_risk", "cause": "shock"}
+            
         near_death_data = load_json(near_death_path)
         
+        # Validate data structure
+        if not near_death_data or not isinstance(near_death_data, dict):
+            # Corrupted data, assume critical condition
+            return {"status": "death_risk", "cause": "shock"}
+        
+        # Get current values with fallbacks
         current_severity = near_death_data.get("severity", 2)
+        recovery_chance = near_death_data.get("recovery_chance", 10)
+        
+        # Validate severity is a reasonable number
+        if not isinstance(current_severity, int) or current_severity < 0 or current_severity > 4:
+            current_severity = 2
+        
         new_severity = max(0, current_severity - 1)  # Lower number = worse condition
         
+        # Update data with validation
         near_death_data["severity"] = new_severity
-        near_death_data["deterioration_chance"] += 10
-        near_death_data["recovery_chance"] = max(5, near_death_data["recovery_chance"] - 5)
+        near_death_data["deterioration_chance"] = near_death_data.get("deterioration_chance", 30) + 10
+        near_death_data["recovery_chance"] = max(5, recovery_chance - 5)
         
-        save_json(near_death_path, near_death_data)
+        # Ensure directory exists before saving
+        os.makedirs(os.path.dirname(near_death_path), exist_ok=True)
+        
+        try:
+            save_json(near_death_path, near_death_data)
+        except Exception as e:
+            print(f"{Icons.WARNING} Could not save near-death data: {e}")
         
         if new_severity <= 0:
             # Critical condition - roll for death
             cause = near_death_data.get("cause", "shock")
             return {"status": "death_risk", "cause": cause}
         
+        # Get stage info safely
+        stage_info = DeathSystem.NEAR_DEATH_STAGES.get(new_severity, {
+            "name": "Unknown", 
+            "description": "Condition unknown"
+        })
+        
         return {
             "status": "worsened",
             "new_severity": new_severity,
-            "message": f"Your condition has worsened to {DeathSystem.NEAR_DEATH_STAGES[new_severity]['name']}"
+            "message": f"Your condition has worsened to {stage_info['name']}"
         }
-
+    
 # === HEALING SYSTEM ===
 class HealingSystem:
     HEALING_METHODS = [
@@ -2328,19 +2401,24 @@ class CombatEngine:
         # Enforce minimum values
         return [max(1, stat) for stat in stats]
     
-
     # Player Emergency when defeated
-    def handle_player_medical_emergency(combat_engine, condition: Dict[str, Any]) -> None:
+    def handle_player_medical_emergency(self, condition: Dict[str, Any]) -> None:
         """Handle player medical emergency during/after combat."""
-        char_id = combat_engine.player[0]
-        char_name = combat_engine.player[1]
+        char_id = self.player[0]
+        char_name = self.player[1]
+
+        # Also get player data properly
+        char_data = load_json(Config.PLAYER_PATH, [])
+        if not char_data:
+            print(f"{Icons.ERROR} Player data not found!")
+            return
         
         if condition["status"] == "near_death":
             near_death_data = DeathSystem.trigger_near_death(
                 char_id, char_name, condition["cause"], condition["severity"]
             )
             
-            # Offer medical intervention
+            # Single medical intervention for near-death
             medical_choice = MedicalSystem.medical_intervention_menu(char_id, char_name)
             
             if medical_choice:
@@ -2350,7 +2428,6 @@ class CombatEngine:
                     RecoverySystem.recover_from_near_death(char_id, medical_choice)
                 else:
                     print(f"\n{Icons.ERROR} Medical treatment failed...")
-                    # Roll for death anyway
                     death_result = DeathSystem.check_death_roll(char_id, condition["cause"], True)
                     if death_result["outcome"] == "death":
                         DeathConsequences.handle_character_death(char_id, char_name, condition["cause"])
@@ -2358,24 +2435,36 @@ class CombatEngine:
                 print(f"\n💀 No medical care chosen. Rolling for survival...")
                 death_result = DeathSystem.check_death_roll(char_id, condition["cause"], False)
                 if death_result["outcome"] == "death":
-                    DeathConsequences.handle_character_death(char_id, char_name, condition["cause"])
+                    DeathConsequences.handle_player_death(death_result)
                 else:
                     print(f"\n{Icons.SUCCESS} Against all odds, you survived!")
                     RecoverySystem.recover_from_near_death(char_id, "miracle")
         
         elif condition["status"] == "death_risk":
+            # Handle ALL death risks in one medical intervention
+            print(f"\n💀 Multiple critical conditions detected!")
+            
+            # List all the conditions
             for cause in condition["causes"]:
-                print(f"\n💀 Critical condition: {DeathSystem.DEATH_CAUSES[cause]['description']}")
-                
-                medical_choice = MedicalSystem.medical_intervention_menu(char_id, char_name)
-                medical_help = medical_choice is not None
-                
+                print(f"   💀 {DeathSystem.DEATH_CAUSES[cause]['description']}")
+            
+            print(f"\n🏥 Emergency medical intervention required for multiple trauma!")
+            medical_choice = MedicalSystem.medical_intervention_menu(char_id, char_name)
+            medical_help = medical_choice is not None
+            
+            # Roll for survival against ALL conditions at once
+            survived_all = True
+            for cause in condition["causes"]:
                 death_result = DeathSystem.check_death_roll(char_id, cause, medical_help)
                 if death_result["outcome"] == "death":
-                    DeathConsequences.handle_character_death(char_id, char_name, cause)
+                    print(f"\n💀 Fatal: {DeathSystem.DEATH_CAUSES[cause]['name']}")
+                    DeathConsequences.handle_player_death(death_result)
                     return  # Player is dead, end here
                 else:
-                    print(f"\n{Icons.SUCCESS} You survived {DeathSystem.DEATH_CAUSES[cause]['name']}!")
+                    print(f"\n{Icons.SUCCESS} Survived: {DeathSystem.DEATH_CAUSES[cause]['name']}")
+            
+            if survived_all:
+                print(f"\n{Icons.SUCCESS} You survived all critical conditions!")
 
     def start_fight(self) -> None:
         """Initialize and start the combat sequence."""
@@ -2420,21 +2509,18 @@ class CombatEngine:
             # Check defeat conditions
             if self.check_defeat(self.player_body):
                 print(f"\n{Icons.ERROR} {self.player[1]} has been defeated!")
+                # Check for near-death/death after combat
+                player_condition = DeathSystem.check_death_conditions(self.player[0])
+                if player_condition["status"] in ["death_risk", "near_death"]:
+                    self.handle_player_medical_emergency(player_condition)
                 break
             elif self.check_defeat(self.npc_body):
-                
                 print(f"\n{Icons.SUCCESS} {self.npc[1]} has been defeated!")
+                                # Check for near-death/death after combat
+                npc_condition = DeathSystem.check_death_conditions(self.npc[0])
+                if npc_condition["status"] in ["death_risk", "near_death"]:
+                    self.handle_npc_medical_emergency(npc_condition)
                 break
-
-            # Check for near-death/death after combat
-            player_condition = DeathSystem.check_death_conditions(self.player[0])
-            npc_condition = DeathSystem.check_death_conditions(self.npc[0])
-                
-            if player_condition["status"] in ["death_risk", "near_death"]:
-                self.handle_player_medical_emergency(player_condition)
-                
-            if npc_condition["status"] in ["death_risk", "near_death"]:
-                self.handle_npc_medical_emergency(npc_condition)
             
             # Determine turn order based on cooldowns
             if self.cooldown_p <= self.cooldown_n:
@@ -2858,7 +2944,7 @@ class GameEngine:
                     continue
                 
                 # Advance time and simulate world (except for stats check)
-                if choice != 9:
+                if choice not in [9, 10, 11]:
                     TimeManager.advance_time()
                     SimulationSystem.simulate_world()
                     

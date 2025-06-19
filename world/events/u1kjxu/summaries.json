@@ -508,6 +508,46 @@
       "tick": 65237,
       "action": "went about their day quietly",
       "timestamp": "2025-06-19 12:56:09"
+    },
+    {
+      "tick": 65267,
+      "action": "spent time at home",
+      "timestamp": "2025-06-19 13:59:40"
+    },
+    {
+      "tick": 65297,
+      "action": "went about their day quietly",
+      "timestamp": "2025-06-19 14:09:24"
+    },
+    {
+      "tick": 65327,
+      "action": "went about their day quietly",
+      "timestamp": "2025-06-19 15:19:58"
+    },
+    {
+      "tick": 65357,
+      "action": "went about their day quietly",
+      "timestamp": "2025-06-19 15:22:53"
+    },
+    {
+      "tick": 65387,
+      "action": "spent time at home",
+      "timestamp": "2025-06-19 15:25:13"
+    },
+    {
+      "tick": 65417,
+      "action": "went about their day quietly",
+      "timestamp": "2025-06-19 15:25:15"
+    },
+    {
+      "tick": 65447,
+      "action": "went about their day quietly",
+      "timestamp": "2025-06-19 15:25:46"
+    },
+    {
+      "tick": 65477,
+      "action": "went about their day quietly",
+      "timestamp": "2025-06-19 15:27:42"
     }
   ]
 }
