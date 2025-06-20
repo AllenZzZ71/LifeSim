@@ -1,0 +1,52 @@
+{
+  "transactions": [
+    {
+      "amount": -50,
+      "type": "expense",
+      "description": "Gym membership (30 days)",
+      "category": "purchase",
+      "date": "2025-06-20",
+      "timestamp": "2025-06-20 11:26:19"
+    },
+    {
+      "amount": 0,
+      "type": "expense",
+      "description": "Medical care - Field Medicine",
+      "category": "purchase",
+      "date": "2025-06-20",
+      "timestamp": "2025-06-20 14:14:42"
+    },
+    {
+      "amount": 0,
+      "type": "expense",
+      "description": "Medical care - Field Medicine",
+      "category": "purchase",
+      "date": "2025-06-20",
+      "timestamp": "2025-06-20 14:23:19"
+    },
+    {
+      "amount": 0,
+      "type": "expense",
+      "description": "Medical care - Field Medicine",
+      "category": "purchase",
+      "date": "2025-06-20",
+      "timestamp": "2025-06-20 14:24:09"
+    },
+    {
+      "amount": 0,
+      "type": "expense",
+      "description": "Medical care - Field Medicine",
+      "category": "purchase",
+      "date": "2025-06-20",
+      "timestamp": "2025-06-20 14:25:14"
+    },
+    {
+      "amount": 0,
+      "type": "expense",
+      "description": "Medical care - Field Medicine",
+      "category": "purchase",
+      "date": "2025-06-20",
+      "timestamp": "2025-06-20 14:28:40"
+    }
+  ]
+}

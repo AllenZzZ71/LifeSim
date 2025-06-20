@@ -247,6 +247,498 @@ class WorldManager:
                     cities.append(city_info)
         return cities
 
+# === ECONOMY SYSTEM ===
+class EconomySystem:
+    """Core economy management"""
+    
+    @staticmethod
+    def initialize_player_wallet(player_id: str) -> Dict[str, Any]:
+        """Initialize player's financial data"""
+        wallet = {
+            "cash": 500,  # Starting money
+            "bank_balance": 0,
+            "total_earned": 500,
+            "total_spent": 0,
+            "income_sources": [],
+            "expense_history": []
+        }
+        wallet_path = f"./player/wallet/{player_id}.json"
+        save_json(wallet_path, wallet)
+        return wallet
+    
+    @staticmethod
+    def load_wallet(player_id: str) -> Dict[str, Any]:
+        """Load player's wallet data"""
+        wallet_path = f"./player/wallet/{player_id}.json"
+        wallet = load_json(wallet_path)
+        if not wallet:
+            return EconomySystem.initialize_player_wallet(player_id)
+        return wallet
+    
+    @staticmethod
+    def save_wallet(player_id: str, wallet: Dict[str, Any]) -> None:
+        """Save wallet data"""
+        wallet_path = f"./player/wallet/{player_id}.json"
+        save_json(wallet_path, wallet)
+    
+    @staticmethod
+    def add_money(player_id: str, amount: int, source: str) -> bool:
+        """Add money to player's wallet"""
+        wallet = EconomySystem.load_wallet(player_id)
+        wallet["cash"] += amount
+        wallet["total_earned"] += amount
+        wallet["income_sources"].append({
+            "amount": amount,
+            "source": source,
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        })
+        EconomySystem.save_wallet(player_id, wallet)
+        TransactionHistory.log_transaction(player_id, amount, "income", source, "earnings")
+        return True
+    
+    @staticmethod
+    def spend_money(player_id: str, amount: int, item: str) -> bool:
+        """Spend money from wallet (returns False if insufficient funds)"""
+        wallet = EconomySystem.load_wallet(player_id)
+        if wallet["cash"] < amount:
+            return False
+        
+        wallet["cash"] -= amount
+        wallet["total_spent"] += amount
+        wallet["expense_history"].append({
+            "amount": amount,
+            "item": item,
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        })
+        EconomySystem.save_wallet(player_id, wallet)
+        TransactionHistory.log_transaction(player_id, -amount, "expense", item, "purchase")
+        return True
+    
+    @staticmethod
+    def get_balance(player_id: str) -> int:
+        """Get current cash balance"""
+        wallet = EconomySystem.load_wallet(player_id)
+        return wallet["cash"]
+    
+    @staticmethod
+    def display_financial_status(player_id: str) -> None:
+        """Display comprehensive financial status"""
+        wallet = EconomySystem.load_wallet(player_id)
+        
+        print_header("Financial Status", "💰")
+        print(f"💵 Cash on Hand: ${wallet['cash']:,}")
+        print(f"🏦 Bank Balance: ${wallet['bank_balance']:,}")
+        print(f"📈 Total Earned: ${wallet['total_earned']:,}")
+        print(f"📉 Total Spent: ${wallet['total_spent']:,}")
+        print(f"💹 Net Worth: ${(wallet['cash'] + wallet['bank_balance']):,}")
+        
+        # Recent transactions
+        print_section("Recent Transactions", "📋")
+        recent_transactions = TransactionHistory.get_transaction_history(player_id, 5)
+        for trans in recent_transactions:
+            icon = "📈" if trans["amount"] > 0 else "📉"
+            print(f"  {icon} ${abs(trans['amount']):,} - {trans['description']} ({trans['date']})")
+        
+        # Spending breakdown
+        spending = TransactionHistory.get_spending_by_category(player_id)
+        if spending:
+            print_section("Spending by Category", "📊")
+            for category, amount in spending.items():
+                print(f"  💸 {category.title()}: ${amount:,}")
+
+class JobSystem:
+    """Employment and income generation"""
+    
+    JOBS = {
+        "cashier": {
+            "name": "Store Cashier",
+            "hourly_wage": 15,
+            "requirements": {"intelligence": 10},
+            "description": "Work at a retail store",
+            "skill_gains": {"social": 1, "patience": 1}
+        },
+        "construction": {
+            "name": "Construction Worker", 
+            "hourly_wage": 25,
+            "requirements": {"strength": 30, "endurance": 25},
+            "description": "Physical labor on construction sites",
+            "skill_gains": {"strength": 2, "endurance": 1}
+        },
+        "security": {
+            "name": "Security Guard",
+            "hourly_wage": 18,
+            "requirements": {"toughness": 20, "willpower": 15},
+            "description": "Protect buildings and people",
+            "skill_gains": {"toughness": 1, "willpower": 1}
+        },
+        "bouncer": {
+            "name": "Club Bouncer",
+            "hourly_wage": 30,
+            "requirements": {"strength": 40, "toughness": 35, "social": 20},
+            "description": "Keep order at nightclubs",
+            "skill_gains": {"strength": 1, "toughness": 2, "social": 1}
+        },
+        "trainer": {
+            "name": "Fitness Trainer",
+            "hourly_wage": 35,
+            "requirements": {"strength": 50, "endurance": 40, "social": 30},
+            "description": "Train clients at the gym",
+            "skill_gains": {"strength": 1, "endurance": 1, "social": 2}
+        }
+    }
+    
+    @staticmethod
+    def get_available_jobs(player_stats: List[int]) -> List[str]:
+        """Get jobs player qualifies for"""
+        available = []
+        
+        # Map stats to requirements
+        stat_map = {
+            "strength": player_stats[0] if len(player_stats) > 0 else 0,
+            "endurance": player_stats[1] if len(player_stats) > 1 else 0,
+            "toughness": player_stats[6] if len(player_stats) > 6 else 0,
+            "willpower": player_stats[9] if len(player_stats) > 9 else 0,
+            "intelligence": player_stats[3] if len(player_stats) > 3 else 0,
+            "social": player_stats[6] if len(player_stats) > 6 else 0  # Using index 6 as social proxy
+        }
+        
+        for job_id, job_data in JobSystem.JOBS.items():
+            qualifies = True
+            for req_stat, req_value in job_data["requirements"].items():
+                if stat_map.get(req_stat, 0) < req_value:
+                    qualifies = False
+                    break
+            
+            if qualifies:
+                available.append(job_id)
+        
+        return available
+    
+    @staticmethod
+    def apply_for_job(player_id: str, job_id: str) -> bool:
+        """Apply for a job"""
+        if job_id not in JobSystem.JOBS:
+            return False
+        
+        job_data = {
+            "job_id": job_id,
+            "job_name": JobSystem.JOBS[job_id]["name"],
+            "hourly_wage": JobSystem.JOBS[job_id]["hourly_wage"],
+            "start_date": datetime.now().strftime("%Y-%m-%d"),
+            "total_hours": 0,
+            "total_earned": 0
+        }
+        
+        job_path = f"./player/jobs/{player_id}.json"
+        save_json(job_path, job_data)
+        
+        print(f"🎉 Congratulations! You got the job as {job_data['job_name']}!")
+        print(f"💰 Hourly wage: ${job_data['hourly_wage']}")
+        return True
+    
+    @staticmethod
+    def work_shift(player_id: str, hours: int = 8) -> Dict[str, Any]:
+        """Work a shift and earn money"""
+        job_data = JobSystem.get_player_job(player_id)
+        if not job_data:
+            return {"success": False, "message": "You don't have a job!"}
+        
+        job_info = JobSystem.JOBS[job_data["job_id"]]
+        earnings = hours * job_data["hourly_wage"]
+        
+        # Update job statistics
+        job_data["total_hours"] += hours
+        job_data["total_earned"] += earnings
+        job_path = f"./player/jobs/{player_id}.json"
+        save_json(job_path, job_data)
+        
+        # Add money to wallet
+        EconomySystem.add_money(player_id, earnings, f"Work shift - {job_data['job_name']}")
+        
+        # Apply skill gains
+        result = {
+            "success": True,
+            "earnings": earnings,
+            "hours": hours,
+            "skill_gains": job_info["skill_gains"],
+            "message": f"Worked {hours} hours as {job_data['job_name']} and earned ${earnings}"
+        }
+        
+        return result
+    
+    @staticmethod
+    def quit_job(player_id: str) -> None:
+        """Quit current job"""
+        job_path = f"./player/jobs/{player_id}.json"
+        if os.path.exists(job_path):
+            os.remove(job_path)
+            print("👋 You quit your job!")
+        else:
+            print("❌ You don't have a job to quit!")
+    
+    @staticmethod
+    def get_player_job(player_id: str) -> Optional[Dict[str, Any]]:
+        """Get player's current job info"""
+        job_path = f"./player/jobs/{player_id}.json"
+        return load_json(job_path) if os.path.exists(job_path) else None
+
+class ShopSystem:
+    """Shopping and item purchasing"""
+    
+    SHOPS = {
+        "general_store": {
+            "name": "General Store",
+            "items": {
+                "bandages": {"price": 5, "description": "Basic medical supplies", "heal_amount": 8},
+                "painkillers": {"price": 12, "description": "Pain relief medication", "heal_amount": 15},
+                "energy_drink": {"price": 3, "description": "Temporary energy boost", "stamina_boost": 20},
+                "multivitamin": {"price": 8, "description": "Daily health supplement", "health_boost": 5}
+            }
+        },
+        "gym_shop": {
+            "name": "Gym Pro Shop", 
+            "items": {
+                "protein_powder": {"price": 30, "description": "Muscle building supplement"},
+                "creatine": {"price": 25, "description": "Strength enhancement"},
+                "pre_workout": {"price": 40, "description": "Training intensity booster"},
+                "gym_membership": {"price": 50, "description": "Monthly gym access", "duration": 30}
+            }
+        },
+        "medical_clinic": {
+            "name": "Medical Clinic",
+            "services": {
+                "checkup": {"price": 100, "description": "General health examination"},
+                "emergency_treatment": {"price": 500, "description": "Emergency medical care"},
+                "surgery": {"price": 2000, "description": "Major surgical procedures"}
+            }
+        }
+    }
+    
+    @staticmethod
+    def display_shop(shop_id: str) -> None:
+        """Display shop inventory and prices"""
+        if shop_id not in ShopSystem.SHOPS:
+            print(f"❌ Shop '{shop_id}' not found!")
+            return
+        
+        shop = ShopSystem.SHOPS[shop_id]
+        print_header(shop["name"], "🏪")
+        
+        items = shop.get("items", {})
+        services = shop.get("services", {})
+        
+        if items:
+            print_section("Items for Sale", "🛒")
+            for i, (item_id, item_data) in enumerate(items.items(), 1):
+                print(f"{i:2d}. {item_data['description']:<30} - ${item_data['price']:,}")
+        
+        if services:
+            print_section("Services Available", "🔧")
+            for i, (service_id, service_data) in enumerate(services.items(), len(items) + 1):
+                print(f"{i:2d}. {service_data['description']:<30} - ${service_data['price']:,}")
+    
+    @staticmethod
+    def purchase_item(player_id: str, shop_id: str, item_id: str, quantity: int = 1) -> bool:
+        """Purchase item from shop"""
+        if shop_id not in ShopSystem.SHOPS:
+            print(f"❌ Shop not found!")
+            return False
+        
+        shop = ShopSystem.SHOPS[shop_id]
+        items = shop.get("items", {})
+        services = shop.get("services", {})
+        all_items = {**items, **services}
+        
+        if item_id not in all_items:
+            print(f"❌ Item '{item_id}' not available!")
+            return False
+        
+        item_data = all_items[item_id]
+        total_cost = item_data["price"] * quantity
+        
+        if not EconomySystem.spend_money(player_id, total_cost, f"{item_data['description']} x{quantity}"):
+            print(f"❌ Insufficient funds! Need ${total_cost:,}, you have ${EconomySystem.get_balance(player_id):,}")
+            return False
+        
+        # Add item to player inventory (simplified)
+        inventory_path = f"./player/inventory/{player_id}.json"
+        inventory = load_json(inventory_path, {})
+        
+        if item_id in inventory:
+            inventory[item_id] += quantity
+        else:
+            inventory[item_id] = quantity
+        
+        save_json(inventory_path, inventory)
+        
+        print(f"✅ Purchased {quantity}x {item_data['description']} for ${total_cost:,}")
+        return True
+    
+    @staticmethod
+    def get_shops_in_city(city_id: str) -> List[str]:
+        """Get available shops in a city"""
+        # For now, all cities have all shops
+        # You can enhance this to vary by city size/type
+        return list(ShopSystem.SHOPS.keys())
+
+class TransactionHistory:
+    """Track all financial transactions"""
+    
+    @staticmethod
+    def log_transaction(player_id: str, amount: int, transaction_type: str, 
+                       description: str, category: str) -> None:
+        """Log a financial transaction"""
+        transaction = {
+            "amount": amount,
+            "type": transaction_type,  # "income" or "expense"
+            "description": description,
+            "category": category,
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+        
+        history_path = f"./economy/transactions/{player_id}.json"
+        history_data = load_json(history_path, {"transactions": []})
+        history_data["transactions"].append(transaction)
+        
+        # Keep only last 100 transactions
+        if len(history_data["transactions"]) > 100:
+            history_data["transactions"] = history_data["transactions"][-100:]
+        
+        save_json(history_path, history_data)
+    
+    @staticmethod
+    def get_transaction_history(player_id: str, limit: int = 10) -> List[Dict[str, Any]]:
+        """Get recent transaction history"""
+        history_path = f"./economy/transactions/{player_id}.json"
+        history_data = load_json(history_path, {"transactions": []})
+        transactions = history_data["transactions"]
+        
+        # Return most recent transactions
+        return transactions[-limit:] if len(transactions) > limit else transactions
+    
+    @staticmethod
+    def get_spending_by_category(player_id: str) -> Dict[str, int]:
+        """Get spending breakdown by category"""
+        history_path = f"./economy/transactions/{player_id}.json"
+        history_data = load_json(history_path, {"transactions": []})
+        
+        spending = {}
+        for trans in history_data["transactions"]:
+            if trans["type"] == "expense":
+                category = trans["category"]
+                if category in spending:
+                    spending[category] += abs(trans["amount"])
+                else:
+                    spending[category] = abs(trans["amount"])
+        
+        return spending
+
+# === INTEGRATION HELPERS ===
+class EconomyIntegration:
+    """Helper class to integrate economy with existing systems"""
+
+    @staticmethod
+    def shopping_interface(player: Player) -> None:
+        """Shopping interface"""
+        city_id = player.data[10]
+        available_shops = ShopSystem.get_shops_in_city(city_id)
+        
+        print_header("Shopping District", "🏪")
+        for i, shop_id in enumerate(available_shops, 1):
+            shop_name = ShopSystem.SHOPS[shop_id]["name"]
+            print(f"{i}. {shop_name}")
+        
+        try:
+            choice = int(input(f"\nWhich shop? (1-{len(available_shops)}): "))
+            if 1 <= choice <= len(available_shops):
+                shop_id = available_shops[choice - 1]
+                EconomyIntegration.shop_interface(player, shop_id)
+        except ValueError:
+            print("❌ Invalid choice!")
+    
+    @staticmethod
+    def shop_interface(player: Player, shop_id: str) -> None:
+        """Individual shop interface"""
+        ShopSystem.display_shop(shop_id)
+        
+        shop = ShopSystem.SHOPS[shop_id]
+        all_items = {**shop.get("items", {}), **shop.get("services", {})}
+        item_list = list(all_items.keys())
+        
+        print(f"\n💰 Your balance: ${EconomySystem.get_balance(player.data[0])}")
+        print(f"{len(item_list) + 1}. 🚪 Leave shop")
+        
+        try:
+            choice = int(input(f"\nWhat would you like to buy? (1-{len(item_list) + 1}): "))
+            if choice == len(item_list) + 1:
+                return
+            elif 1 <= choice <= len(item_list):
+                item_id = item_list[choice - 1]
+                quantity = int(input("Quantity: ") or "1")
+                ShopSystem.purchase_item(player.data[0], shop_id, item_id, quantity)
+        except ValueError:
+            print("❌ Invalid input!")
+    
+    @staticmethod
+    def job_center_interface(player: Player) -> None:
+        """Job center interface"""
+        print_header("Job Center", "📋")
+        
+        current_job = JobSystem.get_player_job(player.data[0])
+        if current_job:
+            print(f"💼 Current Job: {current_job['job_name']}")
+            print(f"💰 Hourly Wage: ${current_job['hourly_wage']}")
+            print(f"⏰ Total Hours: {current_job['total_hours']}")
+            print(f"💵 Total Earned: ${current_job['total_earned']}")
+            print("\n1. 👋 Quit current job")
+            print("2. 🚪 Leave job center")
+            
+            try:
+                choice = int(input("Choice: "))
+                if choice == 1:
+                    JobSystem.quit_job(player.data[0])
+            except ValueError:
+                pass
+        else:
+            # Show available jobs
+            player_stats = StatManager.get_stat_block(player.data[8])
+            available_jobs = JobSystem.get_available_jobs(player_stats)
+            
+            if not available_jobs:
+                print("❌ No jobs available for your skill level!")
+                print("💪 Train your stats and come back later!")
+                return
+            
+            print("Available Jobs:")
+            for i, job_id in enumerate(available_jobs, 1):
+                job = JobSystem.JOBS[job_id]
+                print(f"{i}. {job['name']} - ${job['hourly_wage']}/hour")
+                print(f"   {job['description']}")
+                
+                # Show requirements
+                req_text = []
+                for stat, value in job["requirements"].items():
+                    req_text.append(f"{stat.title()}: {value}")
+                print(f"   Requirements: {', '.join(req_text)}")
+                print()
+            
+            try:
+                choice = int(input(f"Apply for which job? (1-{len(available_jobs)}): "))
+                if 1 <= choice <= len(available_jobs):
+                    job_id = available_jobs[choice - 1]
+                    JobSystem.apply_for_job(player.data[0], job_id)
+            except ValueError:
+                print("❌ Invalid choice!")
+    
+    @staticmethod
+    def apply_work_skill_gains(player: Player, skill_gains: Dict[str, int]) -> None:
+        """Apply skill gains from working"""
+        # This is a simplified version - you'd need to map to actual stat indices
+        print(f"📈 Work experience gained:")
+        for skill, amount in skill_gains.items():
+            print(f"  +{amount} {skill.title()}")
+
 # === COMBAT SYSTEM ===
 class CombatSystem:
     BODY_ZONES = ["head", "torso", "left_arm", "right_arm", "left_leg", "right_leg"]
@@ -852,40 +1344,59 @@ class GymSystem:
 
     def gym_interface(player: Player) -> None:
         """Main gym interface."""
-        while True:
-            GymSystem.display_gym_menu()
+        if not GymSystem.check_gym_membership(player.data[0]):
+            print("🏋️ Welcome to Iron Temple Gym!")
+            print("❌ You need a membership to use the gym facilities.")
+            print(f"💰 Monthly membership: $50")
+            print(f"💵 Your balance: ${EconomySystem.get_balance(player.data[0])}")
             
-            total_options = len(GymSystem.WORKOUT_ROUTINES) + 4
-            
-            try:
-                choice = int(input(f"\n🏋️ Choose your action (1-{total_options}): "))
+            choice = input("\n💳 Purchase membership? (y/n): ").lower().strip()
+            if choice in ['y', 'yes']:
+                if GymSystem.purchase_gym_membership(player.data[0]):
+                    print("🎉 Welcome to the gym! You can now access all facilities.")
+                    # Continue to normal gym interface
+                    GymSystem.gym_interface(player)
+                else:
+                    print("❌ Membership purchase failed. Come back when you have enough money!")
+            else:
+                print("👋 Come back when you're ready to get swole!")
+        else:
+            # Player has valid membership, proceed normally
+            print("🏋️ Welcome back to Iron Temple Gym!")
+            while True:
+                GymSystem.display_gym_menu()
                 
-                if choice <= len(GymSystem.WORKOUT_ROUTINES):
-                    # Execute workout routine
-                    routine_id = list(GymSystem.WORKOUT_ROUTINES.keys())[choice - 1]
-                    GymSystem.execute_workout(player, routine_id=routine_id)
-                    break
+                total_options = len(GymSystem.WORKOUT_ROUTINES) + 4
+                
+                try:
+                    choice = int(input(f"\n🏋️ Choose your action (1-{total_options}): "))
                     
-                elif choice == len(GymSystem.WORKOUT_ROUTINES) + 1:
-                    # Custom workout
-                    GymSystem.custom_workout_interface(player)
-                    break
-                    
-                elif choice == len(GymSystem.WORKOUT_ROUTINES) + 2:
-                    # Buy supplements
-                    GymSystem.supplement_shop_interface(player)
-                    
-                elif choice == len(GymSystem.WORKOUT_ROUTINES) + 3:
-                    # Check physique
-                    MuscleSystem.display_physique(player.data[0], player.data[1])
-                    input("\nPress Enter to continue...")
-                    
-                elif choice == len(GymSystem.WORKOUT_ROUTINES) + 4:
-                    # Leave gym
-                    break
-                    
-            except ValueError:
-                print(f"{Icons.ERROR} Invalid input.")
+                    if choice <= len(GymSystem.WORKOUT_ROUTINES):
+                        # Execute workout routine
+                        routine_id = list(GymSystem.WORKOUT_ROUTINES.keys())[choice - 1]
+                        GymSystem.execute_workout(player, routine_id=routine_id)
+                        break
+                        
+                    elif choice == len(GymSystem.WORKOUT_ROUTINES) + 1:
+                        # Custom workout
+                        GymSystem.custom_workout_interface(player)
+                        break
+                        
+                    elif choice == len(GymSystem.WORKOUT_ROUTINES) + 2:
+                        # Buy supplements
+                        GymSystem.supplement_shop_interface(player)
+                        
+                    elif choice == len(GymSystem.WORKOUT_ROUTINES) + 3:
+                        # Check physique
+                        MuscleSystem.display_physique(player.data[0], player.data[1])
+                        input("\nPress Enter to continue...")
+                        
+                    elif choice == len(GymSystem.WORKOUT_ROUTINES) + 4:
+                        # Leave gym
+                        break
+                        
+                except ValueError:
+                    print(f"{Icons.ERROR} Invalid input.")
 
     def custom_workout_interface(player: Player) -> None:
         """Interface for creating custom workouts."""
@@ -958,6 +1469,46 @@ class GymSystem:
         
         return modified_stats
 
+    def check_gym_membership(player_id: str) -> bool:
+        """Check if player has active gym membership"""
+        membership_path = f"./player/memberships/{player_id}.json"
+        membership = load_json(membership_path)
+        
+        if not membership:
+            return False
+        
+        # Check if membership is still valid
+        current_date = datetime.now()
+        expiry_date = datetime.strptime(membership["expiry_date"], "%Y-%m-%d")
+        
+        return current_date <= expiry_date
+    
+    @staticmethod
+    def purchase_gym_membership(player_id: str, duration: int = 30) -> bool:
+        """Purchase gym membership"""
+        cost = 50  # Monthly membership cost
+        
+        if not EconomySystem.spend_money(player_id, cost, f"Gym membership ({duration} days)"):
+            print(f"❌ Insufficient funds! Gym membership costs ${cost}")
+            return False
+        
+        # Calculate expiry date
+        current_date = datetime.now()
+        expiry_date = current_date + timedelta(days=duration)
+        
+        membership = {
+            "start_date": current_date.strftime("%Y-%m-%d"),
+            "expiry_date": expiry_date.strftime("%Y-%m-%d"),
+            "duration": duration,
+            "cost": cost
+        }
+        
+        membership_path = f"./player/memberships/{player_id}.json"
+        save_json(membership_path, membership)
+        
+        print(f"✅ Gym membership purchased! Valid until {expiry_date.strftime('%Y-%m-%d')}")
+        return True
+    
 # === DEATH SYSTEM CORE ===
 class DeathSystem:
     DEATH_CAUSES = {
@@ -1241,6 +1792,13 @@ class MedicalSystem:
                           near_death_data: Dict[str, Any]) -> Dict[str, Any]:
         """Apply medical intervention."""
         care = MedicalSystem.MEDICAL_INTERVENTIONS[care_type]
+        cost = care["cost"]
+        
+        if char_id == "player_001":  # Only charge player
+            if not EconomySystem.spend_money(char_id, cost, f"Medical care - {care['name']}"):
+                print(f"❌ Cannot afford medical care! Cost: ${cost}, Available: ${EconomySystem.get_balance(char_id)}")
+                return {"success": False, "reason": "insufficient_funds"}
+        
         
         print(f"\n{care['icon']} Applying {care['name']}...")
         print(f"⏱️ Treatment time: {care['time']} hours")
@@ -1254,7 +1812,10 @@ class MedicalSystem:
         base_success = care['effectiveness']
         
         # Character stats help
-        char_data = CharacterManager.get_character_data(char_id)
+        if(char_id != "player_001"):
+            char_data = CharacterManager.get_character_data(char_id)
+        else:
+            char_data = getPlayer()
         if char_data and len(char_data) > 8:
             stats = StatManager.get_stat_block(char_data[8])
             endurance = stats[1] if len(stats) > 1 else 20
@@ -1311,7 +1872,6 @@ class DeathConsequences:
         if char_data and len(char_data) > 10:
             city_info = WorldManager.get_city_info(char_data[10])
             death_record["location"] = f"{city_info['name']}, {city_info['country']}"
-        
         # Save to death registry
         death_registry_path = "./world/death_registry.json"
         registry = load_json(death_registry_path, {"deaths": []})
@@ -2430,7 +2990,10 @@ class CombatEngine:
                     print(f"\n{Icons.ERROR} Medical treatment failed...")
                     death_result = DeathSystem.check_death_roll(char_id, condition["cause"], True)
                     if death_result["outcome"] == "death":
-                        DeathConsequences.handle_character_death(char_id, char_name, condition["cause"])
+                        DeathConsequences.handle_player_death(death_result)
+                    else:
+                        print(f"\n{Icons.SUCCESS} Against all odds, you survived!")
+                        RecoverySystem.recover_from_near_death(char_id, "miracle")
             else:
                 print(f"\n💀 No medical care chosen. Rolling for survival...")
                 death_result = DeathSystem.check_death_roll(char_id, condition["cause"], False)
@@ -2458,6 +3021,7 @@ class CombatEngine:
                 death_result = DeathSystem.check_death_roll(char_id, cause, medical_help)
                 if death_result["outcome"] == "death":
                     print(f"\n💀 Fatal: {DeathSystem.DEATH_CAUSES[cause]['name']}")
+                    print(death_result)
                     DeathConsequences.handle_player_death(death_result)
                     return  # Player is dead, end here
                 else:
@@ -2465,6 +3029,89 @@ class CombatEngine:
             
             if survived_all:
                 print(f"\n{Icons.SUCCESS} You survived all critical conditions!")
+
+    def handle_npc_medical_emergency(self, condition: Dict[str, Any]) -> None:
+        """Handle NPC medical emergency during/after combat."""
+        char_id = self.npc[0]
+        char_name = self.npc[1]
+        char_data = CharacterManager.get_character_data(char_id)
+        
+        if not char_data:
+            print(f"{Icons.ERROR} NPC data not found for {char_name}!")
+            return
+        
+        if condition["status"] == "near_death":
+            near_death_data = DeathSystem.trigger_near_death(
+                char_id, char_name, condition["cause"], condition["severity"]
+            )
+            
+            # NPCs get automatic medical care based on their location and circumstances
+            available_care = MedicalSystem.get_available_medical_care(char_data[10])
+            
+            # Simple AI decision for medical care
+            # NPCs will choose the best available care they can "afford"
+            if "trauma_center" in available_care:
+                medical_choice = "trauma_center"
+            elif "emergency_room" in available_care:
+                medical_choice = "emergency_room"
+            elif "paramedic" in available_care:
+                medical_choice = "paramedic"
+            else:
+                medical_choice = "field_medicine"
+            
+            print(f"\n🚑 Emergency services respond to {char_name}'s condition!")
+            print(f"🏥 Applying {MedicalSystem.MEDICAL_INTERVENTIONS[medical_choice]['name']}...")
+            
+            result = MedicalSystem.apply_medical_care(char_id, char_name, medical_choice, near_death_data)
+            
+            if result["success"]:
+                print(f"\n{Icons.SUCCESS} Medical treatment successful! {char_name} has been stabilized.")
+                RecoverySystem.recover_from_near_death(char_id, medical_choice)
+            else:
+                print(f"\n{Icons.ERROR} Medical treatment failed for {char_name}...")
+                death_result = DeathSystem.check_death_roll(char_id, condition["cause"], True)
+                if death_result["outcome"] == "death":
+                    DeathConsequences.handle_character_death(char_id, char_name, condition["cause"])
+                else:
+                    print(f"\n{Icons.SUCCESS} Against all odds, {char_name} survived!")
+                    RecoverySystem.recover_from_near_death(char_id, "miracle")
+        
+        elif condition["status"] == "death_risk":
+            # Handle ALL death risks for NPC
+            print(f"\n💀 Multiple critical conditions detected for {char_name}!")
+            
+            # List all the conditions
+            for cause in condition["causes"]:
+                print(f"   💀 {DeathSystem.DEATH_CAUSES[cause]['description']}")
+            
+            # NPCs automatically get the best available medical care
+            available_care = MedicalSystem.get_available_medical_care(char_data[10])
+            
+            if "experimental" in available_care:
+                medical_choice = "experimental"
+            elif "trauma_center" in available_care:
+                medical_choice = "trauma_center"
+            elif "emergency_room" in available_care:
+                medical_choice = "emergency_room"
+            else:
+                medical_choice = "paramedic"
+            
+            print(f"\n🏥 Emergency medical intervention for {char_name}: {MedicalSystem.MEDICAL_INTERVENTIONS[medical_choice]['name']}")
+            medical_help = True
+            
+            # Roll for survival against ALL conditions at once
+            survived_all = True
+            for cause in condition["causes"]:
+                death_result = DeathSystem.check_death_roll(char_id, cause, medical_help)
+                if death_result["outcome"] == "death":
+                    print(f"\n💀 Fatal for {char_name}: {DeathSystem.DEATH_CAUSES[cause]['name']}")
+                    DeathConsequences.handle_character_death(char_id, char_name, cause)
+                    return  # NPC is dead, end here
+                else:
+                    print(f"\n{Icons.SUCCESS} {char_name} survived: {DeathSystem.DEATH_CAUSES[cause]['name']}")
+            
+            if survived_all:
+                print(f"\n{Icons.SUCCESS} {char_name} survived all critical conditions!")
 
     def start_fight(self) -> None:
         """Initialize and start the combat sequence."""
@@ -2891,6 +3538,11 @@ class GameEngine:
         print("9. 📊 Check your stats")
         print("10. 🏥 Visit healing center")
         print("11. 🏋️ Go to the Gym")
+        print("12. 💼 Work (if employed)")
+        print("13. 🏪 Visit shops")
+        print("14. 💰 Check finances")
+        print("15. 📋 Job center")
+        print("16. 🏦 Banking")
         print("0. 🚪 Quit game")
 
     def handle_daily_choice(self) -> bool:
@@ -2939,8 +3591,40 @@ class GameEngine:
                 elif choice == 11:  # Gym
                     GymSystem.gym_interface(self.player)
 
+                elif choice == 12:  # Work
+                    job = JobSystem.get_player_job(self.player.data[0])
+                    if job:
+                        print(f"💼 Working as {job['job_name']}...")
+                        result = JobSystem.work_shift(self.player.data[0], 8)
+                        if result["success"]:
+                            print(f"✅ {result['message']}")
+                            # Apply skill gains to player
+                            EconomyIntegration.apply_work_skill_gains(self.player, result["skill_gains"])
+                        else:
+                            print(f"❌ {result['message']}")
+                    else:
+                        print("❌ You don't have a job! Visit the job center first.")
+                    return True
+                    
+                elif choice == 13:  # Visit shops
+                    EconomyIntegration.shopping_interface(self.player)
+                    return True
+                    
+                elif choice == 14:  # Check finances
+                    EconomySystem.display_financial_status(self.player.data[0])
+                    input("\nPress Enter to continue...")
+                    return False  # Don't advance time for checking stats
+                    
+                elif choice == 15:  # Job center
+                    EconomyIntegration.job_center_interface(self.player)
+                    return True
+                    
+                elif choice == 16:  # Banking
+                    print("🏦 Banking features coming soon!")
+                    return False
+
                 else:
-                    print(f"{Icons.ERROR} Invalid choice. Please choose 0-9.")
+                    print(f"{Icons.ERROR} Invalid choice. Please choose 0-16.")
                     continue
                 
                 # Advance time and simulate world (except for stats check)
@@ -2951,7 +3635,7 @@ class GameEngine:
                 return True
                 
             except ValueError:
-                print(f"{Icons.ERROR} Please enter a number between 0-9.")
+                print(f"{Icons.ERROR} Please enter a number between 0-16.")
 
     def socialize_action(self) -> None:
         """Handle socializing action."""

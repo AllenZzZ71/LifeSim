@@ -29,6 +29,26 @@
       "cause_description": "Critical damage to vital organs",
       "location": "unknown",
       "timestamp": "2025-06-19 12:36:51"
+    },
+    {
+      "name": "Dax",
+      "id": "on0gwp",
+      "death_tick": 65477,
+      "death_date": "2060-03-01",
+      "cause": "head_trauma",
+      "cause_description": "Critical brain injury from combat",
+      "location": "Adelaide, ",
+      "timestamp": "2025-06-20 10:46:25"
+    },
+    {
+      "name": "Jake James",
+      "id": "player_001",
+      "death_tick": 65597,
+      "death_date": "2060-07-01",
+      "cause": "head_trauma",
+      "cause_description": "Critical brain injury from combat",
+      "location": "Adelaide, ",
+      "timestamp": "2025-06-20 14:23:20"
     }
   ]
 }
