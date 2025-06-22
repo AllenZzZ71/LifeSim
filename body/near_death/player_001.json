@@ -1,9 +1,0 @@
-{
-  "active": true,
-  "cause": "blood_loss",
-  "severity": 1,
-  "start_tick": 65657,
-  "medical_attention": false,
-  "deterioration_chance": 25,
-  "recovery_chance": 25
-}

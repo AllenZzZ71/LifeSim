@@ -47,6 +47,30 @@
       "category": "purchase",
       "date": "2025-06-20",
       "timestamp": "2025-06-20 14:28:40"
+    },
+    {
+      "amount": 144,
+      "type": "income",
+      "description": "Work shift - Security Guard",
+      "category": "earnings",
+      "date": "2025-06-22",
+      "timestamp": "2025-06-22 00:11:24"
+    },
+    {
+      "amount": 144,
+      "type": "income",
+      "description": "Work shift - Security Guard",
+      "category": "earnings",
+      "date": "2025-06-22",
+      "timestamp": "2025-06-22 00:11:31"
+    },
+    {
+      "amount": 0,
+      "type": "expense",
+      "description": "Medical care - Field Medicine",
+      "category": "purchase",
+      "date": "2025-06-22",
+      "timestamp": "2025-06-22 00:18:33"
     }
   ]
 }

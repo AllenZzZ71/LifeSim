@@ -639,7 +639,7 @@ class EconomyIntegration:
     """Helper class to integrate economy with existing systems"""
 
     @staticmethod
-    def shopping_interface(player: Player) -> None:
+    def shopping_interface(player):
         """Shopping interface"""
         city_id = player.data[10]
         available_shops = ShopSystem.get_shops_in_city(city_id)
@@ -658,7 +658,7 @@ class EconomyIntegration:
             print("❌ Invalid choice!")
     
     @staticmethod
-    def shop_interface(player: Player, shop_id: str) -> None:
+    def shop_interface(player, shop_id):
         """Individual shop interface"""
         ShopSystem.display_shop(shop_id)
         
@@ -681,7 +681,7 @@ class EconomyIntegration:
             print("❌ Invalid input!")
     
     @staticmethod
-    def job_center_interface(player: Player) -> None:
+    def job_center_interface(player) -> None:
         """Job center interface"""
         print_header("Job Center", "📋")
         
@@ -732,7 +732,7 @@ class EconomyIntegration:
                 print("❌ Invalid choice!")
     
     @staticmethod
-    def apply_work_skill_gains(player: Player, skill_gains: Dict[str, int]) -> None:
+    def apply_work_skill_gains(player, skill_gains: Dict[str, int]):
         """Apply skill gains from working"""
         # This is a simplified version - you'd need to map to actual stat indices
         print(f"📈 Work experience gained:")
@@ -1191,7 +1191,7 @@ class GymSystem:
         print(f"{len(GymSystem.WORKOUT_ROUTINES) + 4}. 🚪 Leave Gym")
 
     @staticmethod
-    def execute_workout(player: Player, routine_id: str = None, custom_exercises: List[str] = None) -> None:
+    def execute_workout(player, routine_id, custom_exercises: List[str] = None):
         """Execute a workout routine."""
         physique = MuscleSystem.load_physique(player.data[0])
         
@@ -1312,7 +1312,7 @@ class GymSystem:
         physique["total_mass"] = sum(m["size"] for m in physique["muscles"].values())
 
     @staticmethod
-    def update_player_stats(player: Player, strength_gain: float) -> None:
+    def update_player_stats(player, strength_gain):
         """Update player combat stats based on workout."""
         stats = StatManager.get_stat_block(player.data[8])
         
@@ -1342,7 +1342,7 @@ class GymSystem:
         ]
         return random.choice(events)
 
-    def gym_interface(player: Player) -> None:
+    def gym_interface(player) -> None:
         """Main gym interface."""
         if not GymSystem.check_gym_membership(player.data[0]):
             print("🏋️ Welcome to Iron Temple Gym!")
@@ -1398,7 +1398,7 @@ class GymSystem:
                 except ValueError:
                     print(f"{Icons.ERROR} Invalid input.")
 
-    def custom_workout_interface(player: Player) -> None:
+    def custom_workout_interface(player) -> None:
         """Interface for creating custom workouts."""
         print_section("Custom Workout Builder", "🎯")
         
@@ -1436,7 +1436,7 @@ class GymSystem:
         except ValueError:
             print("Invalid input format.")
 
-    def supplement_shop_interface(player: Player) -> None:
+    def supplement_shop_interface(player) -> None:
         """Interface for buying supplements."""
         SupplementSystem.display_supplement_shop()
         
@@ -2217,7 +2217,7 @@ class HealingSystem:
         return result
 
     @staticmethod
-    def healing_menu(player: Player) -> None:
+    def healing_menu(player) -> None:
         """Display healing options menu."""
         print_header("Healing Center", "🏥")
         
@@ -2261,7 +2261,7 @@ class HealingSystem:
             print(f"{Icons.ERROR} Invalid choice.")
 
     @staticmethod
-    def execute_healing(player: Player, method: Tuple, injured_zones: List) -> None:
+    def execute_healing(player, method, injured_zones):
         """Execute the chosen healing method."""
         name, description, heal_power, cost, method_type = method
         
@@ -2990,7 +2990,8 @@ class CombatEngine:
                     print(f"\n{Icons.ERROR} Medical treatment failed...")
                     death_result = DeathSystem.check_death_roll(char_id, condition["cause"], True)
                     if death_result["outcome"] == "death":
-                        DeathConsequences.handle_player_death(death_result)
+                        print(condition["cause"])
+                        DeathConsequences.handle_character_death(char_id, char_name, condition["cause"])
                     else:
                         print(f"\n{Icons.SUCCESS} Against all odds, you survived!")
                         RecoverySystem.recover_from_near_death(char_id, "miracle")
@@ -2998,7 +2999,8 @@ class CombatEngine:
                 print(f"\n💀 No medical care chosen. Rolling for survival...")
                 death_result = DeathSystem.check_death_roll(char_id, condition["cause"], False)
                 if death_result["outcome"] == "death":
-                    DeathConsequences.handle_player_death(death_result)
+                    print(condition["cause"])
+                    DeathConsequences.handle_character_death(char_id, char_name, condition["cause"])
                 else:
                     print(f"\n{Icons.SUCCESS} Against all odds, you survived!")
                     RecoverySystem.recover_from_near_death(char_id, "miracle")
@@ -3021,8 +3023,7 @@ class CombatEngine:
                 death_result = DeathSystem.check_death_roll(char_id, cause, medical_help)
                 if death_result["outcome"] == "death":
                     print(f"\n💀 Fatal: {DeathSystem.DEATH_CAUSES[cause]['name']}")
-                    print(death_result)
-                    DeathConsequences.handle_player_death(death_result)
+                    DeathConsequences.handle_character_death(char_id, char_name, cause)
                     return  # Player is dead, end here
                 else:
                     print(f"\n{Icons.SUCCESS} Survived: {DeathSystem.DEATH_CAUSES[cause]['name']}")
@@ -3424,7 +3425,7 @@ class TrainingSystem:
     ]
 
     @staticmethod
-    def train_player(player: Player) -> None:
+    def train_player(player) -> None:
         """Handle player training interface."""
         print_header("Training Center", Icons.TRAIN)
         print("Choose your training type:")
@@ -3444,8 +3445,7 @@ class TrainingSystem:
             print(f"{Icons.ERROR} Invalid choice.")
 
     @staticmethod
-    def execute_training(player: Player, training_name: str, stat_label: str, 
-                        stat_index: int, max_gain: int) -> None:
+    def execute_training(player, training_name, stat_label, stat_index, max_gain):
         """Execute the training and update stats."""
         stats = StatManager.get_stat_block(player.data[8])
         

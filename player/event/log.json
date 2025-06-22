@@ -670,5 +670,47 @@
     "action_id": "study",
     "action": "Studied literature",
     "timestamp": "2025-06-19 15:25:14"
+  },
+  {
+    "tick": 65717,
+    "name": "Jake James",
+    "action_id": "socialize",
+    "action": "Socialized with locals",
+    "timestamp": "2025-06-22 00:18:34"
+  },
+  {
+    "tick": 65807,
+    "name": "James",
+    "action_id": "explore",
+    "action": "Explored the old part of town",
+    "timestamp": "2025-06-22 00:37:37"
+  },
+  {
+    "tick": 65897,
+    "name": "James",
+    "action_id": "move_city",
+    "action": "Moved to Yekaterinburg",
+    "timestamp": "2025-06-22 00:38:43"
+  },
+  {
+    "tick": 65957,
+    "name": "James",
+    "action_id": "relax",
+    "action": "Relaxed by listening to music",
+    "timestamp": "2025-06-22 00:39:42"
+  },
+  {
+    "tick": 65987,
+    "name": "James",
+    "action_id": "relax",
+    "action": "Relaxed by reading a book",
+    "timestamp": "2025-06-22 00:39:43"
+  },
+  {
+    "tick": 66017,
+    "name": "James",
+    "action_id": "relax",
+    "action": "Relaxed by reading a book",
+    "timestamp": "2025-06-22 00:39:46"
   }
 ]

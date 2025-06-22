@@ -1,9 +1,20 @@
 {
-  "cash": 450,
+  "cash": 738,
   "bank_balance": 0,
-  "total_earned": 500,
+  "total_earned": 788,
   "total_spent": 50,
-  "income_sources": [],
+  "income_sources": [
+    {
+      "amount": 144,
+      "source": "Work shift - Security Guard",
+      "timestamp": "2025-06-22 00:11:24"
+    },
+    {
+      "amount": 144,
+      "source": "Work shift - Security Guard",
+      "timestamp": "2025-06-22 00:11:31"
+    }
+  ],
   "expense_history": [
     {
       "amount": 50,
@@ -34,6 +45,11 @@
       "amount": 0,
       "item": "Medical care - Field Medicine",
       "timestamp": "2025-06-20 14:28:40"
+    },
+    {
+      "amount": 0,
+      "item": "Medical care - Field Medicine",
+      "timestamp": "2025-06-22 00:18:33"
     }
   ]
 }
